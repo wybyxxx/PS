@@ -48,7 +48,8 @@ f2=[]
 Cams = [f0,f1,f2]
 while(True):     
     # Capture the video frame 
-    # by frame 
+    # by frame
+    print(i)
     ret0, frame0 = vid0.read() 
     ret1, frame1 = vid1.read()
     ret2, frame2 = vid2.read()
@@ -60,11 +61,10 @@ while(True):
     f2.append(frame2)
 
     i = i+1
-
-    # the 'q' button is set as the 
-    print(i)
+    # the 'q' button is set as the
     if cv2.waitKey(1) & 0xFF == ord('q'): 
         break
+    time.sleep(0.05)
 
 end_time = time.perf_counter()
 duration_ms = (end_time - start_time)
@@ -79,8 +79,8 @@ for idx, cam in enumerate(Cams):
     print(f"cap{idx} has been saved...")
 
 vid0.release() 
-# vid1.release()
-# vid2.release()
+vid1.release()
+vid2.release()
 
 # Destroy all the windows 
-cv2.destroyAllWindows() 
+cv2.destroyAllWindows()

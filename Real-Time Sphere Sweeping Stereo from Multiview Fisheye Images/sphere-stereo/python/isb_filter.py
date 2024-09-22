@@ -44,9 +44,9 @@ class ISB_Filter:
             device: CUDA-enabled GPU used for processing
         """
         # Read and compile CUDA functions
-        with open(r'E:\JUFE\codes\Real-Time Sphere Sweeping Stereo from Multiview Fisheye Images\sphere-stereo\python\vec_utils.cuh', 'r', encoding='utf-8') as f:
+        with open('./vec_utils.cuh', 'r', encoding='utf-8') as f:
             utils_source = f.read()
-        with open(r'E:\JUFE\codes\Real-Time Sphere Sweeping Stereo from Multiview Fisheye Images\sphere-stereo\python\isb_filter.cu', 'r', encoding='utf-8') as f:
+        with open('./isb_filter.cu', 'r', encoding='utf-8') as f:
             cuda_source = utils_source + f.read()
         cuda_source = cuda_source.replace("CANDIDATE_COUNT", str(candidate_count))
         module = cupy.RawModule(code=cuda_source)

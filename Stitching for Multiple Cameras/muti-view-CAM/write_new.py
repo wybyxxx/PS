@@ -5,13 +5,13 @@ import os
 import time
 
 
-WIDTH=640
-HEIGHT=480
+WIDTH=1280
+HEIGHT=960
 format='.jpg'
 
-out_path0 = r'E:\jxufe\data\medical\3d\0'
-out_path1 = r'E:\jxufe\data\medical\3d\1'
-out_path2 = r'E:\jxufe\data\medical\3d\2'
+out_path0 = r'E:\jxufe\data\medical\triple\0'
+out_path1 = r'E:\jxufe\data\medical\triple\1'
+out_path2 = r'E:\jxufe\data\medical\triple\2'
 
 os.makedirs(out_path0,exist_ok=True)
 os.makedirs(out_path1,exist_ok=True)
@@ -40,54 +40,66 @@ vid2.set(6,cv2.VideoWriter.fourcc('M','J','P','G'))
 vid2.set(cv2.CAP_PROP_FPS,30)
 print('b')
 i=1
-ret0, frame0 = vid0.read() 
-cv2.imshow('在此窗口内按\'q\'键停止拍摄', frame0[:50,:50,:])
+last_id = 1
+frame = np.zeros([50,50])
+cv2.imshow('在此窗口内按\'q\'键停止拍摄', frame)
 
-f0=[]
-f1=[]
-f2=[]
-Cams = [f0,f1,f2]
+
+Cams = [[],[],[]]
 print('c')
 record = True
+
 while(True):     
-    # Capture the video frame 
-    # by frame
+    pressedKey = cv2.waitKey(1) & 0xFF
     if record:
         print(i)
         ret0, frame0 = vid0.read()
         ret1, frame1 = vid1.read()
         ret2, frame2 = vid2.read()
 
-        if i==1:
-            start_time = time.perf_counter()
-        f0.append(frame0)
-        f1.append(frame1)
-        f2.append(frame2)
+ #       if i==1:
+ #           start_time = time.perf_counter()
+        Cams[0].append(frame0)
+        Cams[1].append(frame1)
+        Cams[2].append(frame2)
+        
 
         i = i+1
-    # the 'q' button is set as the
-    if cv2.waitKey(1) & 0xFF == ord('q'): 
+
+    if pressedKey == ord('q'): 
+        if record == True:
+            for idx, fx in enumerate(Cams):
+                id = last_id
+                for f in fx:
+                    cv2.imwrite(os.path.join(out_paths[idx], str(id) + format), f)
+                    id += 1
+                print(f"cap{idx} has been saved...")
+        Cams=[[],[],[]]
+            
         break
-    if cv2.waitKey(1) & 0xFF == ord('p'):
-        record = not record
-        for idx, cam in enumerate(Cams):
-            id = 1
-            for f in cam:
+        
+    elif pressedKey == ord('p'):
+        for idx, fx in enumerate(Cams):
+            id = last_id
+            for f in fx:
                 cv2.imwrite(os.path.join(out_paths[idx], str(id) + format), f)
                 id += 1
             print(f"cap{idx} has been saved...")
-
-end_time = time.perf_counter()
-duration_ms = (end_time - start_time)
-print(f"运行{duration_ms:.4f}秒，平均帧率{(i+1)/duration_ms}")
+        Cams=[[],[],[]]
+            
+        last_id = id + 1
+        record = False
+        
+        
+    elif pressedKey == ord('r'):
+        record = True
+        
+        
+        
+#end_time = time.perf_counter()
+#duration_ms = (end_time - start_time)
+#print(f"运行{duration_ms:.4f}秒，平均帧率{(i+1)/duration_ms}")
 # After the loop release the cap object 
-
-for idx, cam in enumerate(Cams):
-    i=1
-    for f in cam:
-        cv2.imwrite(os.path.join(out_paths[idx],str(i)+format), f)
-        i+=1
-    print(f"cap{idx} has been saved...")
 
 vid0.release() 
 vid1.release()

@@ -7,15 +7,15 @@ import time
 import numpy as np
 
 # 打开串口
+# ser = serial.Serial('COM4', 921600)  # 将 COM1 替换为你的串口号和相应的波特率
+
+
 ser = serial.Serial('COM6', 115200)  # 将 COM1 替换为你的串口号和相应的波特率
-
-
-# ser = serial.Serial('COM3', 115200)  # 将 COM1 替换为你的串口号和相应的波特率
 
 
 def imshow(img):
     # 解码图像数据
-    # img = cv2.imdecode(np.frombuffer(image_data, dtype=np.uint8), cv2.IMREAD_COLOR)
+    img = cv2.imdecode(np.frombuffer(img, dtype=np.uint8), cv2.IMREAD_COLOR)
 
     # 显示图像
     cv2.imshow("Received Image", img)
@@ -31,13 +31,15 @@ def imshow(img):
 # file_preserve = 1 保存图片文件
 def receive_and_save_image(output_path, file_preserve):
     # 读取图像大小
-    size_data = ser.read(4)
+    print('read')
+    size_data = ser.read(100)
+    print('size_data', size_data)
     size = struct.unpack("<L", size_data)[0]
 
     # 读取图像数据
     image_data = ser.read(size)
-
-    # 解码图像数据
+    print('image_data', image_data)
+    # # 解码图像数据
     img = cv2.imdecode(np.frombuffer(image_data, dtype=np.uint8), cv2.IMREAD_COLOR)
 
     # 保存图像
@@ -47,7 +49,7 @@ def receive_and_save_image(output_path, file_preserve):
 
     # 发送确认信号 "#"
     ser.write(b'#')
-
+    #
     # 接收停止信号
     stop_signal = ser.read(1)
     if stop_signal == b'#':
@@ -58,7 +60,7 @@ def receive_and_save_image(output_path, file_preserve):
 
 
 # 图像保存路径
-output_image_path = 'received_image.jpg'
+output_image_path = r'E:\jxufe\codes\Stitching for Multiple Cameras\received_image.jpg'
 
 while True:
     # 在需要延时的地方调用sleep()函数
@@ -70,7 +72,7 @@ while True:
         break
 
     while key == 1:
-        img, uart_img_key = receive_and_save_image(output_image_path, 1)
+        img, uart_img_key = receive_and_save_image(output_image_path, 0)
         if uart_img_key:
             imshow(img)
             break

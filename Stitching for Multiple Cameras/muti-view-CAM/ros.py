@@ -27,7 +27,7 @@ def findFiles(root_dir, filter_type, reverse=False):
     for i in range(paths.__len__()):
         files.append(paths[i] + names[i])
     print(names.__len__().__str__() + " files have been found.")
-    
+
     paths = np.array(paths)
     names = np.array(names)
     files = np.array(files)
@@ -41,7 +41,7 @@ def findFiles(root_dir, filter_type, reverse=False):
     paths = list(paths)
     names = list(names)
     files = list(files)
-    
+
     if reverse:
         paths.reverse()
         names.reverse()
@@ -50,8 +50,8 @@ def findFiles(root_dir, filter_type, reverse=False):
 
 
 if __name__ == '__main__':
-    img_dir = f'D:/360/out'     # 影像所在文件夹路径，不用包含最后的0、1、2...
-    bag_path = f'D:/360/3.bag'  # 输出Bag路径
+    img_dir = r'E:\jxufe\data\medical\zxy5'     # 影像所在文件夹路径，不用包含最后的0、1、2...
+    bag_path = r'E:\jxufe\data\medical\bag\3-5.bag'  # 输出Bag路径
     cam_num = 3                 # 相机数量
 
     begin_id = 0        # 起始文件夹的id，一般为0，不用改
@@ -75,7 +75,7 @@ if __name__ == '__main__':
             ros_img = cb.cv2_to_imgmsg(cv2.cvtColor(frame_img, cv2.COLOR_BGR2GRAY),encoding='mono8')
             ros_img.header.stamp = ros_ts
             bag_out.write(tmp_topic_name,ros_img,ros_ts)
-    
+
     bag_out.close()
 
 

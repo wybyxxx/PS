@@ -9,36 +9,49 @@ WIDTH=1280
 HEIGHT=960
 format='.jpg'
 
-out_path0 = r'E:\jxufe\data\medical\triple\0'
-out_path1 = r'E:\jxufe\data\medical\triple\1'
-out_path2 = r'E:\jxufe\data\medical\triple\2'
+out_path0 = r'E:\jxufe\data\medical\xyz\0'
+out_path1 = r'E:\jxufe\data\medical\xyz\1'
+out_path2 = r'E:\jxufe\data\medical\xyz\2'
 
 os.makedirs(out_path0,exist_ok=True)
 os.makedirs(out_path1,exist_ok=True)
-os.makedirs(out_path2,exist_ok=True)
+# os.makedirs(out_path2,exist_ok=True)
+
 
 out_paths = [out_path0,out_path1,out_path2]
 # define a video capture object 
-print('a')
+print('cam0...')
 vid0 = cv2.VideoCapture(0) 
 vid0.set(cv2.CAP_PROP_FRAME_WIDTH, WIDTH)
 vid0.set(cv2.CAP_PROP_FRAME_HEIGHT, HEIGHT)
 vid0.set(6,cv2.VideoWriter.fourcc('M','J','P','G'))
 vid0.set(cv2.CAP_PROP_FPS,30)
-print('a1')
+# # 检查设置是否成功
+# actual_exposure = vid0.get(cv2.CAP_PROP_EXPOSURE)
+# print(f"当前曝光值: {actual_exposure}")
+
+
+print('cam1...')
 vid1 = cv2.VideoCapture(1)
 vid1.set(cv2.CAP_PROP_FRAME_WIDTH, WIDTH)
 vid1.set(cv2.CAP_PROP_FRAME_HEIGHT, HEIGHT)
 vid1.set(6,cv2.VideoWriter.fourcc('M','J','P','G'))
 vid1.set(cv2.CAP_PROP_FPS,30)
-print('a2')
 
-vid2 = cv2.VideoCapture(2)
-vid2.set(cv2.CAP_PROP_FRAME_WIDTH, WIDTH)
-vid2.set(cv2.CAP_PROP_FRAME_HEIGHT, HEIGHT)
-vid2.set(6,cv2.VideoWriter.fourcc('M','J','P','G'))
-vid2.set(cv2.CAP_PROP_FPS,30)
-print('b')
+# vid1.set(cv2.CAP_PROP_AUTO_EXPOSURE, 1.0) # 打开自动曝光
+# vid1.set(cv2.CAP_PROP_AUTO_EXPOSURE, 0.0) # 关闭自动曝光
+# vid1.set(cv2.CAP_PROP_AUTO_WB, 1.0)
+# vid1.set(cv2.CAP_PROP_EXPOSURE, 0.01)
+# actual_exposure = vid1.get(cv2.CAP_PROP_EXPOSURE)
+# print(f"当前曝光值: {actual_exposure}")
+
+# print('cam2...')
+# vid2 = cv2.VideoCapture(2)
+# vid2.set(cv2.CAP_PROP_FRAME_WIDTH, WIDTH)
+# vid2.set(cv2.CAP_PROP_FRAME_HEIGHT, HEIGHT)
+# vid2.set(6,cv2.VideoWriter.fourcc('M','J','P','G'))
+# vid2.set(cv2.CAP_PROP_FPS,30)
+
 i=1
 last_id = 1
 frame = np.zeros([50,50])
@@ -55,13 +68,13 @@ while(True):
         print(i)
         ret0, frame0 = vid0.read()
         ret1, frame1 = vid1.read()
-        ret2, frame2 = vid2.read()
+        # ret2, frame2 = vid2.read()
 
  #       if i==1:
  #           start_time = time.perf_counter()
         Cams[0].append(frame0)
         Cams[1].append(frame1)
-        Cams[2].append(frame2)
+        # Cams[2].append(frame2)
         
 
         i = i+1
@@ -103,7 +116,7 @@ while(True):
 
 vid0.release() 
 vid1.release()
-vid2.release()
+# vid2.release()
 
 # Destroy all the windows 
 cv2.destroyAllWindows()

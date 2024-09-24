@@ -14,8 +14,8 @@ out_path1 = r'E:\jxufe\data\medical\3d\1'
 out_path2 = r'E:\jxufe\data\medical\3d\2'
 
 os.makedirs(out_path0,exist_ok=True)
-os.makedirs(out_path1,exist_ok=True)
-os.makedirs(out_path2,exist_ok=True)
+# os.makedirs(out_path1,exist_ok=True)
+# os.makedirs(out_path2,exist_ok=True)
 
 out_paths = [out_path0,out_path1,out_path2]
 # define a video capture object 
@@ -26,19 +26,20 @@ vid0.set(cv2.CAP_PROP_FRAME_HEIGHT, HEIGHT)
 vid0.set(6,cv2.VideoWriter.fourcc('M','J','P','G'))
 vid0.set(cv2.CAP_PROP_FPS,30)
 print('a1')
-vid1 = cv2.VideoCapture(1)
-vid1.set(cv2.CAP_PROP_FRAME_WIDTH, WIDTH)
-vid1.set(cv2.CAP_PROP_FRAME_HEIGHT, HEIGHT)
-vid1.set(6,cv2.VideoWriter.fourcc('M','J','P','G'))
-vid1.set(cv2.CAP_PROP_FPS,30)
-print('a2')
 
-vid2 = cv2.VideoCapture(2)
-vid2.set(cv2.CAP_PROP_FRAME_WIDTH, WIDTH)
-vid2.set(cv2.CAP_PROP_FRAME_HEIGHT, HEIGHT)
-vid2.set(6,cv2.VideoWriter.fourcc('M','J','P','G'))
-vid2.set(cv2.CAP_PROP_FPS,30)
-print('b')
+# vid1 = cv2.VideoCapture(1)
+# vid1.set(cv2.CAP_PROP_FRAME_WIDTH, WIDTH)
+# vid1.set(cv2.CAP_PROP_FRAME_HEIGHT, HEIGHT)
+# vid1.set(6,cv2.VideoWriter.fourcc('M','J','P','G'))
+# vid1.set(cv2.CAP_PROP_FPS,30)
+# print('a2')
+#
+# vid2 = cv2.VideoCapture(2)
+# vid2.set(cv2.CAP_PROP_FRAME_WIDTH, WIDTH)
+# vid2.set(cv2.CAP_PROP_FRAME_HEIGHT, HEIGHT)
+# vid2.set(6,cv2.VideoWriter.fourcc('M','J','P','G'))
+# vid2.set(cv2.CAP_PROP_FPS,30)
+# print('b')
 i=1
 ret0, frame0 = vid0.read() 
 cv2.imshow('在此窗口内按\'q\'键停止拍摄', frame0[:50,:50,:])
@@ -55,8 +56,8 @@ while(True):
     if record:
         print(i)
         ret0, frame0 = vid0.read()
-        ret1, frame1 = vid1.read()
-        ret2, frame2 = vid2.read()
+        # ret1, frame1 = vid1.read()
+        # ret2, frame2 = vid2.read()
 
         if i==1:
             start_time = time.perf_counter()

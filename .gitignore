@@ -1,0 +1,50 @@
+.idea/
+./git
+./vscode
+./.gitignore
+./Real-Time Sphere Sweeping Stereo from Multiview Fisheye Images/sphere-stereo/resources
+./Real-Time Sphere Sweeping Stereo from Multiview Fisheye Images/sphere-stereo/evaluation_dataset
+./ultralytics-main
+**/test/*
+**/data/*
+**/res/*
+
+
+*.mp4
+*.png
+*.jpg
+*.pdf
+*.pt
+*pth
+# maven ignore
+target/
+*.jar
+*.war
+*.zip
+*.tar
+*.tar.gz
+ 
+# eclipse ignore
+.settings/
+.project
+.classpath
+ 
+# idea ignore
+*.ipr
+*.iml
+*.iws
+ 
+# temp ignore
+*.log
+*.cache
+*.diff
+*.patch
+*.tmp
+ 
+# system ignore
+.DS_Store
+Thumbs.db
+*.orig`
+Logs
+build.gradle
+.gradle
